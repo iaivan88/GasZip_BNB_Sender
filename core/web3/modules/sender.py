@@ -51,7 +51,10 @@ class SenderModule(Web3Wallet):
 
                     # Try different API endpoints - GasZip might have changed their API structure
                     api_endpoints = [
-                        f'https://backend.gas.zip/v2/quotes/56/{value}/204',  # Original endpoint
+                        f'https://backend.gas.zip/v2/bridge/56/{value}/204',  # Try bridge endpoint first
+                        f'https://backend.gas.zip/v2/transaction/56/{value}/204',  # Transaction endpoint
+                        f'https://backend.gas.zip/v2/build/56/{value}/204',  # Build endpoint
+                        f'https://backend.gas.zip/v2/quotes/56/{value}/204',  # Original quotes endpoint
                         f'https://backend.gas.zip/v2/quotes/bsc/{value}/opbnb',  # Alternative with chain names
                         f'https://backend.gas.zip/v2/quotes/bsc/{value}/204',  # Mixed format
                         f'https://backend.gas.zip/api/v2/quotes/56/{value}/204',  # Alternative API path
