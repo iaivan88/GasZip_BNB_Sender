@@ -18,6 +18,8 @@ class Bot:
             amount: float,
             proxy: str
     ):
+        sender = None
+
         async with semaphore:
             try:
                 if delay > 0:
