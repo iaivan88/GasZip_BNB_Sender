@@ -1,0 +1,18 @@
+# ═══════════════════════════════════════════════════════════════════════════
+#                           APPLICATION CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════
+
+
+web3_settings:
+  bsc_rpc_url: "https://bsc.drpc.org" # Binance Smart Chain RPC URL
+  main_private_key: "" # Main private key from which sending funds to other accounts
+
+  amount_to_bridge:
+    min: 0.000048554 # Minimum amount to bridge in BNB
+    max: 0.00006 # Maximum amount to bridge in BNB
+
+
+attempts_and_delay_settings:
+  delay_before_start: # random delay
+    min: 2 # in seconds
+    max: 3 # in seconds
