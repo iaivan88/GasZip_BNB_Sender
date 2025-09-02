@@ -1,110 +1,124 @@
-# 🌐 BNB > opBNB Sender via GasZip [v1.0]
+# GasZip BNB Sender
 
-<div align="center">
-  
-  <p align="center">
-    <a href="https://t.me/JamBitPY">
-      <img src="https://img.shields.io/badge/Telegram-Channel-blue?style=for-the-badge&logo=telegram" alt="Telegram Channel">
-    </a>
-    <a href="https://t.me/JamBitChat">
-      <img src="https://img.shields.io/badge/Telegram-Chat-blue?style=for-the-badge&logo=telegram" alt="Telegram Chat">
-    </a>
-  </p>
+A Python application for bridging BNB tokens from Binance Smart Chain (BSC) to opBNB.
 
-</div>
+## Features
 
+- Automated BNB bridging from BSC to opBNB
+- Support for multiple wallet configurations
+- Configurable bridge amounts with min/max ranges
+- Proxy support for enhanced privacy
+- Random delays between operations
+- Comprehensive logging and error handling
 
-## 🛠️ Installation
+## Prerequisites
 
-1. **Clone the Repository**
-   ```bash
-   git clone [repository URL]
-   ```
+- Python 3.8+
+- BNB tokens on Binance Smart Chain
+- Wallet private keys
 
-2. **Set Up Virtual Environment**
-   ```bash
-   python -m venv venv
-   source venv/Scripts/activate  # Windows
-   source venv/bin/activate      # Unix/MacOS
-   ```
+## Installation
 
-3. **Install Dependencies**
+1. Clone the repository
+2. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-## 📝 Input Files Structure
+## Configuration
 
-### 📁data/wallets.txt
+### 1. Wallet Configuration (`config/data/wallets.txt`)
 
-```plaintext
-# Add your wallet private keys here (one per line)
-# Each wallet will bridge BNB tokens to opBNB
-0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
-0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
-0x567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234
+Add your wallet private keys, one per line:
+
+```
+# Remove the 0x prefix if your private keys don't have it
+1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
 ```
 
-### 📁 data/proxies.txt
-```
-http://user:pass@ip:port
-http://ip:port:user:pass
-http://user:pass:ip:port
-```
+**⚠️ IMPORTANT**: 
+- Each private key should be 64 hex characters
+- Ensure each wallet has sufficient BNB for gas fees + bridge amount
+- Keep your private keys secure and never share them
 
-## 🔑 Multiple Wallet BNB Bridging
-
-### ⚠️ Important: Each Wallet Bridges BNB
-
-The system now supports bridging BNB tokens from multiple wallets to opBNB:
-
-- **Wallet 1** → **Bridge BNB to opBNB**
-- **Wallet 2** → **Bridge BNB to opBNB**
-- **Wallet 3** → **Bridge BNB to opBNB**
-- And so on...
-
-### 📋 Configuration Requirements
-
-1. **Wallet Private Keys**: Multiple private keys in `wallets.txt` (one per line)
-2. **Balance Check**: Ensure each wallet has sufficient BNB for gas fees and the amount to bridge
-3. **File Structure**: Private keys are loaded from `config/data/wallets.txt`
-4. **Target Addresses**: Not needed - each wallet bridges its own BNB
-
-### 🔧 Settings.yaml Example
+### 2. Application Settings (`config/settings.yaml`)
 
 ```yaml
 web3_settings:
-  bsc_rpc_url: "https://bsc.drpc.org"
-  # Private keys are loaded from wallets.txt file
-  
+  bsc_rpc_url: "https://bsc.drpc.org"  # BSC RPC endpoint
   amount_to_bridge:
-    min: 0.000048554
-    max: 0.00006
+    min: 0.000048554  # Minimum BNB to bridge
+    max: 0.00006      # Maximum BNB to bridge
+
+attempts_and_delay_settings:
+  delay_before_start:
+    min: 2  # Minimum delay in seconds
+    max: 3  # Maximum delay in seconds
 ```
 
-### ⚡ Benefits of Multiple Wallets
+### 3. Proxy Configuration (`config/data/proxies.txt`) - Optional
 
-- **Distributed Risk**: No single wallet handles all transactions
-- **Better Success Rate**: Multiple wallets can operate simultaneously
-- **Easier Tracking**: Each transaction is clearly associated with a specific wallet
-- **Compliance**: Useful for managing multiple accounts or projects
-- **Individual Bridging**: Each wallet bridges its own BNB tokens
+Add proxy configurations if needed:
 
-## 📊 Results
+```
+http://username:password@proxy.example.com:8080
+socks5://username:password@proxy.example.com:1080
+```
 
-```plaintext
-📁 results/sender/
-  ├── 📄 bridge_success.txt  # Successful bridge wallet addresses
-  ├── 📄 bridge_failed.txt  # Failed bridge wallet addresses
-  ```
+Leave empty to run without proxies.
 
-## 🚀 Usage
+### 4. Target Addresses (`config/data/target_addresses.txt`) - Optional
 
+For BNB bridging operations, leave this file empty. Each wallet bridges its own BNB.
 
-1. Configure your settings in settings.yaml
-2. Add your accounts to target_addresses.txt
-3. Add proxies to proxies.txt
-4. Run the checker:
+## Usage
+
+1. Configure your wallets and settings as described above
+2. Run the application:
    ```bash
    python run.py
    ```
+
+## How It Works
+
+1. The application loads wallet configurations from `wallets.txt`
+2. For each wallet, it calculates a random bridge amount within the configured range
+3. It connects to BSC using the configured RPC endpoint
+4. Each wallet bridges its BNB tokens to opBNB
+5. Random delays are applied between operations
+
+## Security Notes
+
+- Never commit private keys to version control
+- Use environment variables for sensitive data in production
+- Consider using hardware wallets for large amounts
+- Regularly rotate your private keys
+
+## Troubleshooting
+
+### Common Issues
+
+1. **"No valid wallet private keys found"**
+   - Ensure `wallets.txt` contains valid 64-character hex private keys
+   - Remove any `0x` prefixes if present
+
+2. **"Configuration loading failed"**
+   - Check that all required fields are present in `settings.yaml`
+   - Verify file permissions and paths
+
+3. **"Insufficient BNB balance"**
+   - Ensure each wallet has enough BNB for gas fees + bridge amount
+   - Check current BNB balances on BSC
+
+### Logs
+
+The application uses structured logging with loguru. Check the console output for detailed information about operations and any errors.
+
+## License
+
+This project is for educational purposes. Use at your own risk.
+
+## Disclaimer
+
+This software is provided "as is" without warranty. Cryptocurrency transactions carry inherent risks. Always test with small amounts first and ensure you understand the implications of your actions.

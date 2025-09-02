@@ -2,8 +2,16 @@
 #                              TARGET ADDRESSES
 # ═══════════════════════════════════════════════════════════════════════════
 #
-# This file is not used for BNB bridging
+# This file is not used for BNB bridging operations
 # Each wallet bridges its own BNB tokens to opBNB
-# Keep this file empty or remove it
+# 
+# If you need to send BNB to specific addresses instead of bridging,
+# you can add those addresses here (one per line)
+#
+# Example format:
+# 0x1234567890123456789012345678901234567890
+# 0xabcdefabcdefabcdefabcdefabcdefabcdefabcd
 # ═══════════════════════════════════════════════════════════════════════════
+
+# Leave empty for BNB bridging operations:
 

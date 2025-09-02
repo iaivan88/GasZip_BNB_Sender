@@ -64,8 +64,13 @@ class ConfigLoader:
     def _parse_proxies(self) -> Optional[List[str]]:
         try:
             proxy_lines = self._read_file(
-                self.data_path / "proxies.txt", allow_empty=False
+                self.data_path / "proxies.txt", allow_empty=True
             )
+            
+            if not proxy_lines:
+                logger.warning("No proxies found in proxies.txt - running without proxies")
+                return []
+                
             for proxy in proxy_lines:
                 Proxy.from_str(proxy)
 
@@ -135,7 +140,11 @@ class ConfigLoader:
                     continue
             
             if not wallets:
-                raise ConfigurationError("No valid wallet private keys found in wallets.txt")
+                raise ConfigurationError(
+                    "No valid wallet private keys found in wallets.txt. "
+                    "Please add at least one private key to proceed. "
+                    "Each private key should be 64 hex characters (with or without 0x prefix)."
+                )
                 
             return wallets
             
@@ -149,6 +158,8 @@ class ConfigLoader:
             params = self._load_yaml()
             proxies = self._parse_proxies()
             target_addresses = list(self._parse_accounts("target_addresses.txt"))
+            if not target_addresses:
+                logger.warning("No target addresses found in target_addresses.txt - this is fine for BNB bridging")
             wallet_private_keys = self._parse_wallets()
 
             # Validate wallet configuration

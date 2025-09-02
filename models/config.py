@@ -35,9 +35,7 @@ class AttemptsAndDelaySettings:
 
 @dataclass
 class Web3Settings:
-    wallet_private_keys: list[str]  # List of private keys for different wallets
     bsc_rpc_url: str
-
     amount_to_bridge: PositiveFloatRange
 
 
