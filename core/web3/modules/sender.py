@@ -73,5 +73,4 @@ class SenderModule(Web3Wallet):
             return await self._process_transaction(transaction)
 
         except Exception as error:
-            logger.exception(error)
             return False, str(error)
