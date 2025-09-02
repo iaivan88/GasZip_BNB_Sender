@@ -5,7 +5,10 @@
 
 web3_settings:
   bsc_rpc_url: "https://bsc.drpc.org" # Binance Smart Chain RPC URL
-  main_private_key: "" # Main private key from which sending funds to other accounts
+  
+  # ⚠️  IMPORTANT: Private keys are loaded from config/data/wallets.txt
+  # Each wallet will bridge BNB tokens to opBNB
+  # Make sure each wallet has sufficient BNB for gas fees + bridge amount
 
   amount_to_bridge:
     min: 0.000048554 # Minimum amount to bridge in BNB

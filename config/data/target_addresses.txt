@@ -1,0 +1,9 @@
+# ═══════════════════════════════════════════════════════════════════════════
+#                              TARGET ADDRESSES
+# ═══════════════════════════════════════════════════════════════════════════
+#
+# This file is not used for BNB bridging
+# Each wallet bridges its own BNB tokens to opBNB
+# Keep this file empty or remove it
+# ═══════════════════════════════════════════════════════════════════════════
+

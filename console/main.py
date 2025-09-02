@@ -83,8 +83,17 @@ class Console:
         accounts_table.add_column("Parameter", style="cyan")
         accounts_table.add_column("Value", style="magenta")
 
-        accounts_table.add_row("Target addresses", str(len(config.target_addresses)))
+        accounts_table.add_row("Wallets configured", str(len(config.wallet_private_keys)))
         accounts_table.add_row("Proxies", str(len(config.proxies)))
+        accounts_table.add_row("Operation", "BNB → opBNB Bridge")
+
+        # Check configuration status
+        if len(config.wallet_private_keys) == 0:
+            accounts_table.add_row("⚠️  No wallets", "Add private keys to wallets.txt")
+            self.rich_console.print(f"[bold red]⚠️  ERROR:[/bold red] No wallet private keys found in wallets.txt")
+        else:
+            accounts_table.add_row("✅ Configuration", f"{len(config.wallet_private_keys)} wallets will bridge BNB")
+            self.rich_console.print(f"[bold green]✅[/bold green] Configuration is correct: {len(config.wallet_private_keys)} wallets will bridge BNB tokens to opBNB")
 
         main_table.add_column("Section")
         main_table.add_row("[bold]Files Information[/bold]", accounts_table)
