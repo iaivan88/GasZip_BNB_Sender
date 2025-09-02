@@ -31,7 +31,7 @@ class FileOperations:
         if module not in self.module_paths:
             raise ValueError(f"Unknown module: {module}")
 
-        file_path = self.module_paths[module]["success" if result else "failed"]
+        file_path = self.module_paths[module]["success" if status else "failed"]
         async with self.lock:
             try:
                 async with aiofiles.open(file_path, "a") as file:
