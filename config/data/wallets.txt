@@ -1,0 +1,19 @@
+# ═══════════════════════════════════════════════════════════════════════════
+#                              WALLETS CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════
+#
+# Add your wallet private keys here (one per line)
+# Each wallet will bridge BNB tokens to opBNB
+#
+# Example format:
+# 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+# 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+# 0x567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234
+#
+# ⚠️  IMPORTANT: 
+# - Each private key should be on a separate line
+# - Remove the "0x" prefix if your private keys don't have it
+# - Ensure each wallet has sufficient BNB for gas fees + bridge amount
+# ═══════════════════════════════════════════════════════════════════════════
+
+# Add your private keys below:
